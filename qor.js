@@ -1,31 +1,35 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const snowflakes = document.querySelector('.snowflakes');
+    const snowflakesContainer = document.querySelector('.snowflakes');
+    let snowflakes = []; // Qorlarni saqlash uchun massiv
 
     // Qorlarni yaratish
     function createSnowflake() {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         snowflake.textContent = '❄'; // Qor belgisini o'zgartirish mumkin
-        snowflakes.appendChild(snowflake);
-        
-        // Har bir qorning tasodifiy joylashuvi va kechikishi
-        const startPositionX = Math.random() * window.innerWidth; // Tasodifiy X pozitsiyasi
+        snowflakesContainer.appendChild(snowflake);
+
+        // Tasodifiy boshlanish joyi va animatsiya parametrlarini o'rnatish
+        const startPositionX = Math.random() * window.innerWidth;
         const startPositionY = -10; // Qor yuqoridan boshlanadi
-        const duration = 5 + Math.random() * 5; // 5-10 soniya davomida
+        const duration = 8 + Math.random() * 7; // 8-15 soniya davomida
         const delay = Math.random() * 3; // Tasodifiy kechikish
 
-        // Qorni tasodifiy joylashtirish
+        // Animatsiyani boshlash
         snowflake.style.left = startPositionX + 'px';
         snowflake.style.top = startPositionY + 'px';
         snowflake.style.animationDuration = duration + 's';
         snowflake.style.animationDelay = delay + 's';
 
-        // O'chirish
+        // Qorni o'chirish va massivga qo'shish
         setTimeout(() => {
             snowflake.remove();
         }, (duration + delay) * 1000); // Animatsiya tugagach o'chirish
+
+        // Har safar yangi qor yaratib boramiz
+        snowflakes.push(snowflake);
     }
 
-    // Har 100msda bir qorni yaratish
-    setInterval(createSnowflake, 100);
+    // Har 300msda bir qorni yaratish (200ms emas)
+    setInterval(createSnowflake, 300); // Intervalni yanada pasaytirdik
 });
